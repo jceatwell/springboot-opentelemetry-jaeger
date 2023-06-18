@@ -14,5 +14,6 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=stage1 /opt/code/target/*.jar /app/main.jar
 ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.26.0/opentelemetry-javaagent.jar .
+RUN chmod 755 opentelemetry-javaagent.jar
 ENV JAVA_TOOL_OPTIONS "-javaagent:/app/opentelemetry-javaagent.jar"
 CMD ["java", "-jar", "main.jar"]
